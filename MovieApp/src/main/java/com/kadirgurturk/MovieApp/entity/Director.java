@@ -2,8 +2,10 @@ package com.kadirgurturk.MovieApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -24,6 +26,7 @@ public class Director {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "director_id")
     public Long directorId;
+
 
     @Column(name = "first_name", nullable = false, length = 100)
     public String firstName;
@@ -47,6 +50,15 @@ public class Director {
 
     public Director() {
     }
+
+    public Director( String firstName, String middleName, String familyName, LocalDate birthDate) {
+
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.familyName = familyName;
+        this.birthDate = birthDate;
+    }
+
 
     public Long getDirectorİd() {
         return directorId;

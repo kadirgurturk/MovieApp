@@ -5,6 +5,7 @@ import com.kadirgurturk.MovieApp.dto.Iterable.DirectorsDTO;
 import com.kadirgurturk.MovieApp.dto.Iterable.MovieListDTO;
 import com.kadirgurturk.MovieApp.dto.Iterable.MoviesDto;
 import com.kadirgurturk.MovieApp.dto.MovieDto;
+import com.kadirgurturk.MovieApp.dto.SaveMovie;
 import com.kadirgurturk.MovieApp.entity.Movie;
 import com.kadirgurturk.MovieApp.entity.dto.DirectorList;
 import com.kadirgurturk.MovieApp.entity.dto.MovieList;
@@ -42,5 +43,10 @@ public class MovieMapper {
         dto.directorListDto = directorList;
 
         return dto;
+    }
+
+    public Movie toMovie(SaveMovie moveSave)
+    {
+        return new Movie(moveSave.movieName,moveSave.sceneDate,moveSave.rating,moveSave.cost,moveSave.imdb);
     }
 }

@@ -44,6 +44,14 @@ public class Movie {
     public Movie() {
     }
 
+    public Movie(String movieName, LocalDate sceneDate, Long rating, Float cost, Float imdb) {
+        this.movieName = movieName;
+        this.sceneDate = sceneDate;
+        this.rating = rating;
+        this.cost = cost;
+        this.imdb = imdb;
+    }
+
     public Set<Director> getDirectors() {
         return directors;
     }

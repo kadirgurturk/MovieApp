@@ -1,16 +1,14 @@
 package com.kadirgurturk.MovieApp.controller;
 
+import com.kadirgurturk.MovieApp.advice.exceptions.NotFoundExp;
 import com.kadirgurturk.MovieApp.dto.Iterable.DirectorListDTO;
 import com.kadirgurturk.MovieApp.dto.Iterable.MoviesDto;
 import com.kadirgurturk.MovieApp.dto.MovieDto;
+import com.kadirgurturk.MovieApp.dto.SaveMovie;
 import com.kadirgurturk.MovieApp.entity.Movie;
-import com.kadirgurturk.MovieApp.entity.dto.DirectorList;
-import com.kadirgurturk.MovieApp.entity.dto.MovieList;
 import com.kadirgurturk.MovieApp.entity.dto.MoviesDirector;
-import com.kadirgurturk.MovieApp.repository.MovieRepository;
 import com.kadirgurturk.MovieApp.service.MovieService;
-import org.springframework.data.repository.query.Param;
-import org.springframework.http.ResponseEntity;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -36,8 +34,10 @@ public class MoiveController {
     }
 
     @GetMapping("findByid/")
-    public Optional<MovieDto> findById(@RequestParam("id") Long id){
-        return movieService.findById(id);
+    public MovieDto findById(@RequestParam("id") Long id){
+
+        return movieService.findById(id)
+                .orElseThrow(() -> new NotFoundExp("This id is not valid"));
     }
 
     @GetMapping("findByRating/")
@@ -59,16 +59,10 @@ public class MoiveController {
     }
 
     @PostMapping("movie/save")
-    public String saveMovie(@RequestBody Movie movieSave){
-        {
-            movieService.save(movieSave);
+    public String saveMovie(@RequestBody @Valid SaveMovie movieSave){
 
-            if(movieSave.getDirectors() == null){
-                return "null";
-            }else{
-                return "değil";
-            }
-        }
+           return "das";
+
 
     }
 }

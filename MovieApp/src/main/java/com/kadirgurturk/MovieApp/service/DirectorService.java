@@ -4,6 +4,7 @@ import com.kadirgurturk.MovieApp.dto.DirectorDto;
 import com.kadirgurturk.MovieApp.dto.Iterable.DirectorListDTO;
 import com.kadirgurturk.MovieApp.dto.Iterable.DirectorsDTO;
 import com.kadirgurturk.MovieApp.dto.Iterable.MovieListDTO;
+import com.kadirgurturk.MovieApp.dto.SaveDirector;
 import com.kadirgurturk.MovieApp.entity.Director;
 import com.kadirgurturk.MovieApp.mapper.DirectorMapper;
 import com.kadirgurturk.MovieApp.repository.DirectorRepository;
@@ -39,8 +40,12 @@ public class DirectorService {
         return directorMapper.toMovieListDto(StreamSupport.stream(directorRepository.findByIdWithMovies(id).spliterator(), false).toList());
     }
 
-    public void save(Director director)
+    public void save(SaveDirector saveDirector)
     {
+
+        var director = directorMapper.toDirector(saveDirector);
+
         directorRepository.save(director);
+
     }
 }
