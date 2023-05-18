@@ -26,7 +26,7 @@ public class DirectorController {
         return directorService.findById(id).orElseThrow(() -> new NotFoundExp("This id is not valid"));
     }
 
-    @GetMapping("director/findMovieById/")
+    @GetMapping("director/findMoviesById/")
     public MovieListDTO findMovieById(@RequestParam("id") Long id)
     {
         return directorService.findMoviesById(id);
