@@ -1,4 +1,4 @@
-package com.kadirgurturk.MovieApp.dto;
+package com.kadirgurturk.MovieApp.dto.Save;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;

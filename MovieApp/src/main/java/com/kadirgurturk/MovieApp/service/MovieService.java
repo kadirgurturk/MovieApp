@@ -1,10 +1,9 @@
 package com.kadirgurturk.MovieApp.service;
 
-import com.kadirgurturk.MovieApp.dto.DirectorDto;
 import com.kadirgurturk.MovieApp.dto.Iterable.DirectorListDTO;
-import com.kadirgurturk.MovieApp.dto.Iterable.MovieListDTO;
 import com.kadirgurturk.MovieApp.dto.Iterable.MoviesDto;
 import com.kadirgurturk.MovieApp.dto.MovieDto;
+import com.kadirgurturk.MovieApp.dto.Save.SaveMovie;
 import com.kadirgurturk.MovieApp.entity.Movie;
 import com.kadirgurturk.MovieApp.mapper.MovieMapper;
 import com.kadirgurturk.MovieApp.repository.MovieRepository;
@@ -25,9 +24,13 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public void save(Movie movie)
+    public void save(SaveMovie saveMovie)
     {
+
+        var movie = new Movie(saveMovie.movieName,saveMovie.sceneDate,saveMovie.rating,saveMovie.cost,saveMovie.imdb);
+
         movieRepository.save(movie);
+
     }
 
     public Long count()

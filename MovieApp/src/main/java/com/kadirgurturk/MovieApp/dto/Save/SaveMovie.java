@@ -1,4 +1,4 @@
-package com.kadirgurturk.MovieApp.dto;
+package com.kadirgurturk.MovieApp.dto.Save;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -34,6 +34,10 @@ public class SaveMovie {
         this.rating = rating;
         this.cost = cost;
         this.imdb = imdb;
+    }
+
+    public SaveMovie() {
+
     }
 
     public String getMovieName() {

@@ -1,14 +1,11 @@
 package com.kadirgurturk.MovieApp.mapper;
 
 import com.kadirgurturk.MovieApp.dto.Iterable.DirectorListDTO;
-import com.kadirgurturk.MovieApp.dto.Iterable.DirectorsDTO;
-import com.kadirgurturk.MovieApp.dto.Iterable.MovieListDTO;
 import com.kadirgurturk.MovieApp.dto.Iterable.MoviesDto;
 import com.kadirgurturk.MovieApp.dto.MovieDto;
-import com.kadirgurturk.MovieApp.dto.SaveMovie;
+import com.kadirgurturk.MovieApp.dto.Save.SaveMovie;
 import com.kadirgurturk.MovieApp.entity.Movie;
 import com.kadirgurturk.MovieApp.entity.dto.DirectorList;
-import com.kadirgurturk.MovieApp.entity.dto.MovieList;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

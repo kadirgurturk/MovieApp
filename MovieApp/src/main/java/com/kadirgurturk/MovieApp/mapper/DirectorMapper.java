@@ -3,9 +3,8 @@ package com.kadirgurturk.MovieApp.mapper;
 import com.kadirgurturk.MovieApp.dto.DirectorDto;
 import com.kadirgurturk.MovieApp.dto.Iterable.DirectorsDTO;
 import com.kadirgurturk.MovieApp.dto.Iterable.MovieListDTO;
-import com.kadirgurturk.MovieApp.dto.SaveDirector;
+import com.kadirgurturk.MovieApp.dto.Save.SaveDirector;
 import com.kadirgurturk.MovieApp.entity.Director;
-import com.kadirgurturk.MovieApp.entity.dto.DirectorList;
 import com.kadirgurturk.MovieApp.entity.dto.MovieList;
 import org.springframework.stereotype.Component;
 

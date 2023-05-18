@@ -4,11 +4,11 @@ import com.kadirgurturk.MovieApp.advice.exceptions.NotFoundExp;
 import com.kadirgurturk.MovieApp.dto.Iterable.DirectorListDTO;
 import com.kadirgurturk.MovieApp.dto.Iterable.MoviesDto;
 import com.kadirgurturk.MovieApp.dto.MovieDto;
-import com.kadirgurturk.MovieApp.dto.SaveMovie;
-import com.kadirgurturk.MovieApp.entity.Movie;
+import com.kadirgurturk.MovieApp.dto.Save.SaveMovie;
 import com.kadirgurturk.MovieApp.entity.dto.MoviesDirector;
 import com.kadirgurturk.MovieApp.service.MovieService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -59,10 +59,11 @@ public class MoiveController {
     }
 
     @PostMapping("movie/save")
-    public String saveMovie(@RequestBody @Valid SaveMovie movieSave){
+    public ResponseEntity<SaveMovie> saveMovie(@RequestBody @Valid SaveMovie movieSave){
 
-           return "das";
+           movieService.save(movieSave);
 
+          return ResponseEntity.ok(movieSave);
 
     }
 }
