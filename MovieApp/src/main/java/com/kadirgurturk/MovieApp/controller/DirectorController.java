@@ -10,6 +10,8 @@ import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/directors")
 public class DirectorController {
@@ -36,6 +38,18 @@ public class DirectorController {
     public DirectorsDTO findDirectorByName(@RequestParam("n") String name)
     {
         return directorService.findByName(name);
+    }
+
+    @GetMapping("director/page/")
+    public DirectorsDTO findDirectorWithPage(@RequestParam("p") int page, @RequestParam("s") int size)
+    {
+        return directorService.directorPagination(page,size);
+    }
+
+    @GetMapping("director/pagesort/")
+    public DirectorsDTO findDirectorWithPageAndSort(@RequestParam("p") int page, @RequestParam("s") int size, @RequestParam("f") String field)
+    {
+        return directorService.directorsSortPage(page,size,field);
     }
 
     @PostMapping("director/save")

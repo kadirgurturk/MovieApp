@@ -4,6 +4,7 @@ import com.kadirgurturk.MovieApp.entity.Movie;
 import com.kadirgurturk.MovieApp.entity.dto.DirectorList;
 import com.kadirgurturk.MovieApp.entity.dto.MovieList;
 import com.kadirgurturk.MovieApp.entity.dto.MoviesDirector;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface MovieRepository extends CrudRepository<Movie,Long> {
+public interface MovieRepository extends JpaRepository<Movie,Long> {
 
 
     Iterable<Movie> findByRating(Long rating);

@@ -6,6 +6,7 @@ import com.kadirgurturk.MovieApp.dto.Iterable.MovieListDTO;
 import com.kadirgurturk.MovieApp.dto.Save.SaveDirector;
 import com.kadirgurturk.MovieApp.entity.Director;
 import com.kadirgurturk.MovieApp.entity.dto.MovieList;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class DirectorMapper {
 
         return dto;
     }
+
 
     public MovieListDTO toMovieListDto(List<MovieList> moviesList)
     {
