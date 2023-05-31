@@ -20,19 +20,19 @@ public class DirectorController {
         this.directorService = directorService;
     }
 
-    @GetMapping("director/findById/")
+    @GetMapping("director/id/")
     public DirectorDto findById(@RequestParam("id") Long id)
     {
         return directorService.findById(id).orElseThrow(() -> new NotFoundExp("This id is not valid"));
     }
 
-    @GetMapping("director/findMoviesById/")
+    @GetMapping("director/movie/id/")
     public MovieListDTO findMovieById(@RequestParam("id") Long id)
     {
         return directorService.findMoviesById(id);
     }
 
-    @GetMapping("director/findByName/")
+    @GetMapping("director/name/")
     public DirectorsDTO findDirectorByName(@RequestParam("n") String name)
     {
         return directorService.findByName(name);

@@ -32,35 +32,29 @@ public class MoiveController {
     }
 
 
-    @GetMapping("findByName/")
+    @GetMapping("movie/name/")
     public MoviesDto findAll(@RequestParam("n") String name){
         return movieService.findByName(name);
     }
 
-    @GetMapping("findByid/")
+    @GetMapping("movie/id/")
     public MovieDto findById(@RequestParam("id") Long id){
 
         return movieService.findById(id)
                 .orElseThrow(() -> new NotFoundExp("This id is not valid"));
     }
 
-    @GetMapping("findByRating/")
+    @GetMapping("movie/rating/")
     public MoviesDto findByRating(@RequestParam("rate") Long rating){
         return movieService.findByRating(rating);
     }
 
-    @GetMapping("movie/find/directors/{id}")
+    @GetMapping("movie/directors/{id}")
     public DirectorListDTO findMovieById(@PathVariable("id") Long id)
     {
         return movieService.findDirectorsById(id);
     }
 
-    @GetMapping("findMovieByIdWithDirector/")
-    public Optional<MoviesDirector> findMovieByIdWithDirector(@RequestParam("id") Long id)
-    {
-        // TODO: 27.04.2023  r
-        return null;
-    }
 
     @PostMapping("movie/save")
     public ResponseEntity<SaveMovie> saveMovie(@RequestBody @Valid SaveMovie movieSave){
