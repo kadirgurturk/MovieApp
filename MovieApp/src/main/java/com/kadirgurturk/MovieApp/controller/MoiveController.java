@@ -32,19 +32,19 @@ public class MoiveController {
     }
 
 
-    @GetMapping("movie/name/")
+    @GetMapping("movie/")
     public MoviesDto findAll(@RequestParam("n") String name){
         return movieService.findByName(name);
     }
 
-    @GetMapping("movie/id/")
+    @GetMapping("movie/")
     public MovieDto findById(@RequestParam("id") Long id){
 
         return movieService.findById(id)
                 .orElseThrow(() -> new NotFoundExp("This id is not valid"));
     }
 
-    @GetMapping("movie/rating/")
+    @GetMapping("movie/")
     public MoviesDto findByRating(@RequestParam("rate") Long rating){
         return movieService.findByRating(rating);
     }
@@ -53,6 +53,24 @@ public class MoiveController {
     public DirectorListDTO findMovieById(@PathVariable("id") Long id)
     {
         return movieService.findDirectorsById(id);
+    }
+
+    @GetMapping("/")
+    public MoviesDto findMovieSort(@RequestParam("p") int page, @RequestParam("s") int size)
+    {
+        return movieService.moviesPagination(page,size);
+    }
+
+    @GetMapping("/")
+    public MoviesDto findMovieWithSort(@RequestParam("f") String field)
+    {
+        return movieService.movieSort(field);
+    }
+
+    @GetMapping("/")
+    public MoviesDto findMoviePaginationSort(@RequestParam("p") int page, @RequestParam("s") int size,@RequestParam("f") String field)
+    {
+        return movieService.moviesSortPagination(page,size,field);
     }
 
 

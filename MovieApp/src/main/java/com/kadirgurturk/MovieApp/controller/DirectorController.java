@@ -46,6 +46,12 @@ public class DirectorController {
         return directorService.directorPagination(page,size);
     }
 
+    @GetMapping("director/sort/")
+    public DirectorsDTO findDirectorsWithSort(@RequestParam("f") String field)
+    {
+        return directorService.directorSort(field);
+    }
+
     @GetMapping("director/pagesort/")
     public DirectorsDTO findDirectorWithPageAndSort(@RequestParam("p") int page, @RequestParam("s") int size, @RequestParam("f") String field)
     {
