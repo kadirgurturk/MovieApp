@@ -7,8 +7,11 @@ import com.kadirgurturk.MovieApp.dto.Save.SaveMovie;
 import com.kadirgurturk.MovieApp.entity.Movie;
 import com.kadirgurturk.MovieApp.mapper.MovieMapper;
 import com.kadirgurturk.MovieApp.repository.MovieRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -51,6 +54,33 @@ public class MovieService {
     public MoviesDto findByName(String name)
     {
         return movieMapper.toMoviesDto(StreamSupport.stream(movieRepository.findByMovieName(name).spliterator(),false).map(movieMapper::toMovieDto).collect(Collectors.toList()));
+    }
+
+
+    public MoviesDto moviesPagination(int page, int size)
+    {
+
+        var pageble = PageRequest.of(page,size);
+
+       return movieMapper.toMoviesDto(StreamSupport.stream(movieRepository.findAll(pageble).spliterator(),false)
+               .map(movieMapper::toMovieDto)
+               .collect(Collectors.toList()));
+    }
+
+    public MoviesDto movieSort(String field)
+    {
+        return movieMapper.toMoviesDto(StreamSupport.stream(movieRepository.findAll(Sort.by(field)).spliterator(),false)
+                .map(movieMapper::toMovieDto)
+                .collect(Collectors.toList()));
+    }
+
+    public MoviesDto moviesSortPagination(int page, int size,String field)
+    {
+        var pageble = PageRequest.of(page,size);
+
+        return movieMapper.toMoviesDto(StreamSupport.stream(movieRepository.findAll(pageble.withSort(Sort.by(field))).spliterator(),false)
+                .map(movieMapper::toMovieDto)
+                .collect(Collectors.toList()));
     }
 
     public DirectorListDTO findDirectorsById(Long id)

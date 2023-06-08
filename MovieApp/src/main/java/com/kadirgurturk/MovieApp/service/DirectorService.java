@@ -37,13 +37,15 @@ public class DirectorService {
     {
         var pageble = PageRequest.of(page,size);
 
-       return directorMapper.toDirectorsDTO(StreamSupport.stream(directorRepository.findAll(pageble).spliterator(),false).map(directorMapper::toDirectorDto)
+       return directorMapper.toDirectorsDTO(StreamSupport.stream(directorRepository.findAll(pageble).spliterator(),false)
+               .map(directorMapper::toDirectorDto)
                .collect(Collectors.toList()));
     }
 
     public DirectorsDTO directorSort(String field)
     {
-        return directorMapper.toDirectorsDTO(StreamSupport.stream(directorRepository.findAll(Sort.by(field)).spliterator(),false).map(directorMapper::toDirectorDto)
+        return directorMapper.toDirectorsDTO(StreamSupport.stream(directorRepository.findAll(Sort.by(field)).spliterator(),false)
+                .map(directorMapper::toDirectorDto)
                 .collect(Collectors.toList()));
     }
 
@@ -52,7 +54,8 @@ public class DirectorService {
         var pageble = PageRequest.of(page,size);
 
        return directorMapper.toDirectorsDTO(StreamSupport.stream(directorRepository.findAll(pageble.withSort(Sort.by(field))).spliterator(),false)
-                .map(directorMapper::toDirectorDto).collect(Collectors.toList()));
+                .map(directorMapper::toDirectorDto)
+               .collect(Collectors.toList()));
     }
 
     public DirectorsDTO findByName(String name)
