@@ -2,11 +2,11 @@ package com.kadirgurturk.MovieApp.advice;
 
 import org.springframework.http.HttpStatus;
 
-public class NotFoundResponse {
+public class ErrorResponse {
     private final String message;
     private final HttpStatus status;
 
-    public NotFoundResponse(String message, HttpStatus status) {
+    public ErrorResponse(String message, HttpStatus status) {
         this.message = message;
         this.status = status;
     }

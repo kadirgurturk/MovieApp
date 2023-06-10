@@ -10,6 +10,8 @@ import com.kadirgurturk.MovieApp.entity.dto.MoviesDirector;
 import com.kadirgurturk.MovieApp.service.MovieService;
 import com.kadirgurturk.MovieApp.service.MoviestoDirectorService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,50 +29,59 @@ public class MoiveController {
     }
 
     @GetMapping("count")
-    public Long count(){
-        return movieService.count();
+    public ResponseEntity<?> count(){
+
+        return new ResponseEntity<>(movieService.count(),HttpStatus.OK);
     }
 
 
     @GetMapping("movie/")
-    public MoviesDto findAll(@RequestParam("n") String name){
-        return movieService.findByName(name);
+    public ResponseEntity<?> findByName(@RequestParam("n") String name){
+
+        return new ResponseEntity<>(movieService.findByName(name), HttpStatus.FOUND);
     }
 
     @GetMapping("movie/")
-    public MovieDto findById(@RequestParam("id") Long id){
+    public ResponseEntity<?>  findById(@RequestParam("id") Long id){
 
-        return movieService.findById(id)
-                .orElseThrow(() -> new NotFoundExp("This id is not valid"));
+        var movie = movieService.findById(id).orElseThrow(() -> new NotFoundExp("This id is not vaild") );
+
+        return new ResponseEntity<>(movie,HttpStatus.FOUND);
     }
 
     @GetMapping("movie/")
-    public MoviesDto findByRating(@RequestParam("rate") Long rating){
-        return movieService.findByRating(rating);
+    public ResponseEntity<?> findByRating(@RequestParam("rate") Long rating){
+
+        return new ResponseEntity<>(movieService.findByRating(rating),HttpStatus.FOUND);
     }
 
     @GetMapping("movie/directors/{id}")
-    public DirectorListDTO findMovieById(@PathVariable("id") Long id)
+    public ResponseEntity<?> findMovieById(@PathVariable("id") Long id)
     {
-        return movieService.findDirectorsById(id);
+        return new ResponseEntity<>(movieService.findDirectorsById(id),HttpStatus.FOUND);
+
     }
 
     @GetMapping("/")
-    public MoviesDto findMovieSort(@RequestParam("p") int page, @RequestParam("s") int size)
+    public ResponseEntity<?> findMovieSort(@RequestParam("p") int page, @RequestParam("s") int size)
     {
-        return movieService.moviesPagination(page,size);
+
+        return new ResponseEntity<>(movieService.moviesPagination(page,size),HttpStatus.FOUND);
+
     }
 
     @GetMapping("/")
-    public MoviesDto findMovieWithSort(@RequestParam("f") String field)
+    public ResponseEntity<?> findMovieWithSort(@RequestParam("f") String field)
     {
-        return movieService.movieSort(field);
+        return new ResponseEntity<>(movieService.movieSort(field),HttpStatus.FOUND);
+
     }
 
     @GetMapping("/")
-    public MoviesDto findMoviePaginationSort(@RequestParam("p") int page, @RequestParam("s") int size,@RequestParam("f") String field)
+    public ResponseEntity<?> findMoviePaginationSort(@RequestParam("p") int page, @RequestParam("s") int size,@RequestParam("f") String field)
     {
-        return movieService.moviesSortPagination(page,size,field);
+        return new ResponseEntity<>(movieService.moviesSortPagination(page,size,field),HttpStatus.FOUND);
+
     }
 
 
