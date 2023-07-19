@@ -7,6 +7,9 @@ import com.kadirgurturk.MovieApp.dto.Save.SaveMovie;
 import com.kadirgurturk.MovieApp.entity.Movie;
 import com.kadirgurturk.MovieApp.mapper.MovieMapper;
 import com.kadirgurturk.MovieApp.repository.MovieRepository;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
+@CacheConfig(cacheNames = "movieCache")
 public class MovieService {
 
     private MovieMapper movieMapper;
@@ -51,6 +55,7 @@ public class MovieService {
         return movieMapper.toMoviesDto(StreamSupport.stream(movieRepository.findByRating(rating).spliterator(),false).map(movieMapper::toMovieDto).collect(Collectors.toList()));
     }
 
+    @Cacheable(cacheNames = "movies", key = "#id")
     public MoviesDto findByName(String name)
     {
         return movieMapper.toMoviesDto(StreamSupport.stream(movieRepository.findByMovieName(name).spliterator(),false).map(movieMapper::toMovieDto).collect(Collectors.toList()));

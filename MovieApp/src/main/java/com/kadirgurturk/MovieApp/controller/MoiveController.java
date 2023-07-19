@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController()
-@RequestMapping("/api/movies")
+@RequestMapping("/api/movies/")
 public class MoiveController {
     private MovieService movieService;
     private MoviestoDirectorService moviestoDirectorService;
@@ -35,7 +35,7 @@ public class MoiveController {
     }
 
 
-    @GetMapping("movie/")
+    @GetMapping()
     public ResponseEntity<?> findByName(@RequestParam("n") String name){
 
         return new ResponseEntity<>(movieService.findByName(name), HttpStatus.FOUND);
@@ -49,7 +49,7 @@ public class MoiveController {
         return new ResponseEntity<>(movie,HttpStatus.FOUND);
     }
 
-    @GetMapping("movie/")
+    @GetMapping("movie/rating/")
     public ResponseEntity<?> findByRating(@RequestParam("rate") Long rating){
 
         return new ResponseEntity<>(movieService.findByRating(rating),HttpStatus.FOUND);
@@ -62,7 +62,7 @@ public class MoiveController {
 
     }
 
-    @GetMapping("/")
+    @GetMapping("page/")
     public ResponseEntity<?> findMovieSort(@RequestParam("p") int page, @RequestParam("s") int size)
     {
 
@@ -70,14 +70,14 @@ public class MoiveController {
 
     }
 
-    @GetMapping("/")
+    @GetMapping("sort/")
     public ResponseEntity<?> findMovieWithSort(@RequestParam("f") String field)
     {
         return new ResponseEntity<>(movieService.movieSort(field),HttpStatus.FOUND);
 
     }
 
-    @GetMapping("/")
+    @GetMapping("pagesort/")
     public ResponseEntity<?> findMoviePaginationSort(@RequestParam("p") int page, @RequestParam("s") int size,@RequestParam("f") String field)
     {
         return new ResponseEntity<>(movieService.moviesSortPagination(page,size,field),HttpStatus.FOUND);
