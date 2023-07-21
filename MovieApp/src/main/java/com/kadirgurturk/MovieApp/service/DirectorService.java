@@ -6,6 +6,9 @@ import com.kadirgurturk.MovieApp.dto.Iterable.MovieListDTO;
 import com.kadirgurturk.MovieApp.dto.Save.SaveDirector;
 import com.kadirgurturk.MovieApp.mapper.DirectorMapper;
 import com.kadirgurturk.MovieApp.repository.DirectorRepository;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
+@CacheConfig(cacheNames = "movie")
 public class DirectorService {
 
     private DirectorMapper directorMapper;
@@ -28,10 +32,12 @@ public class DirectorService {
         this.directorRepository = directorRepository;
     }
 
+    @Cacheable(value = "directors", key = "#id")
     public Optional<DirectorDto> findById(Long id)
     {
         return directorRepository.findById(id).map(directorMapper::toDirectorDto);
     }
+
 
     public DirectorsDTO directorPagination(int page, int size)
     {
@@ -49,6 +55,7 @@ public class DirectorService {
                 .collect(Collectors.toList()));
     }
 
+
     public DirectorsDTO directorsSortPage(int page, int size, String field)
     {
         var pageble = PageRequest.of(page,size);
@@ -63,11 +70,13 @@ public class DirectorService {
         return directorMapper.toDirectorsDTO(StreamSupport.stream(directorRepository.findByfirstName(name).spliterator(),false).map(directorMapper::toDirectorDto).collect(Collectors.toList()));
     }
 
+    @Cacheable(value = "director", key = "#id")
     public MovieListDTO findMoviesById(Long id)
     {
         return directorMapper.toMovieListDto(StreamSupport.stream(directorRepository.findByIdWithMovies(id).spliterator(), false).toList());
     }
 
+    @CachePut(value = "directors", key = "#result.id")
     public void save(SaveDirector saveDirector)
     {
 

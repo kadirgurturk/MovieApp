@@ -8,6 +8,7 @@ import com.kadirgurturk.MovieApp.entity.Movie;
 import com.kadirgurturk.MovieApp.mapper.MovieMapper;
 import com.kadirgurturk.MovieApp.repository.MovieRepository;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
-@CacheConfig(cacheNames = "movieCache")
+@CacheConfig(cacheNames = "movie")
 public class MovieService {
 
     private MovieMapper movieMapper;
@@ -31,6 +32,7 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
+    @CachePut(value = "movies", key = "#result.id")
     public void save(SaveMovie saveMovie)
     {
 
@@ -45,11 +47,13 @@ public class MovieService {
         return movieRepository.count();
     }
 
+    @Cacheable(cacheNames = "movie", key = "#id")
     public Optional<MovieDto> findById(Long id)
     {
         return movieRepository.findById(id).map(movieMapper::toMovieDto);
     }
 
+    @Cacheable(cacheNames = "movies", key = "#rate")
     public MoviesDto findByRating(Long rating)
     {
         return movieMapper.toMoviesDto(StreamSupport.stream(movieRepository.findByRating(rating).spliterator(),false).map(movieMapper::toMovieDto).collect(Collectors.toList()));
@@ -72,6 +76,7 @@ public class MovieService {
                .collect(Collectors.toList()));
     }
 
+    @Cacheable(cacheNames = "movie", key = "#sort")
     public MoviesDto movieSort(String field)
     {
         return movieMapper.toMoviesDto(StreamSupport.stream(movieRepository.findAll(Sort.by(field)).spliterator(),false)
@@ -79,6 +84,7 @@ public class MovieService {
                 .collect(Collectors.toList()));
     }
 
+    @Cacheable(cacheNames = "movie", key = "{ #field, #page, #size }")
     public MoviesDto moviesSortPagination(int page, int size,String field)
     {
         var pageble = PageRequest.of(page,size);
@@ -87,6 +93,7 @@ public class MovieService {
                 .map(movieMapper::toMovieDto)
                 .collect(Collectors.toList()));
     }
+
 
     public DirectorListDTO findDirectorsById(Long id)
     {
